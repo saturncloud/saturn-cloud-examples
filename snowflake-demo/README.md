@@ -1,1 +1,1 @@
-# Using Snowflake within Saturn Cloud JupyterLab
+# Using Snowflake in Saturn Cloud JupyterLab
