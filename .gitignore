@@ -78,6 +78,10 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+Untitled*.ipynb
+
+# Dask
+dask-worker-space/
 
 # pyenv
 .python-version
