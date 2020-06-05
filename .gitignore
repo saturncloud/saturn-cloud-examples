@@ -1,29 +1,36 @@
 # Byte-compiled / optimized / DLL files
+*.a
+*.dll
+*.dylib
+*.exe
+*.msi
 __pycache__/
 *.py[cod]
 *$py.class
-
-# C extensions
 *.so
 
 # Distribution / packaging
-.Python
+*.7z
 build/
+*.bzip
 develop-eggs/
 dist/
 downloads/
+*.egg
+*.egg-info/
 eggs/
 .eggs/
+env/
+.installed.cfg
 lib/
 lib64/
 parts/
+.Python
 sdist/
+*.tar.gz
 var/
 wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
+*.zip
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -90,7 +97,9 @@ ENV/
 env.bak/
 venv.bak/
 
-# Spyder project settings
+# files from IDEs
+**/.idea/
+*.Rproj
 .spyderproject
 .spyproject
 
@@ -102,3 +111,14 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# office files
+*.doc
+*.docm
+*.docx
+*.ppt
+*.pptm
+*.pptz
+*.xls
+*.xlsm
+*.xlsx
