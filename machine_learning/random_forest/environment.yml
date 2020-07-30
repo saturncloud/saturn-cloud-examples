@@ -1,0 +1,24 @@
+name: saturn
+channels:
+- https://conda.saturncloud.io/pkgs
+- nvidia
+- rapidsai
+- numba
+- defaults
+- conda-forge
+- saturncloud
+dependencies:
+- blas=*=mkl
+- python=3.7
+- numpy
+- pandas
+- ipywidgets
+- dask=2.20.0
+- distributed=2.20.0
+- dask-saturn=0.0.4
+- dask-ml
+- rapids=0.14.1=cuda10.1_py37_0
+- numba=0.49.1
+- llvmlite=0.32.1
+- s3fs
+- pyarrow
