@@ -13,7 +13,7 @@ dependencies:
 - distributed==2.20.0
 - dask-ml
 - dask-xgboost
-- xgboost==0.9
+- xgboost
 - dask-saturn==0.0.4
 - pip
 - snowflake-sqlalchemy
