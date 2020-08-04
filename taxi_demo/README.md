@@ -12,7 +12,7 @@ The data dictionary for the yellow trip data is available [here](https://www1.ny
 
 ### Environment / Images
 
-These examples should work with Saturn's default images, but you can also [build and image yourself](https://www.saturncloud.io/docs/getting-started/setup/customizing-environments/) using the requirement files provided.
+These examples should work with Saturn's default images, but you can also [build an image yourself](https://www.saturncloud.io/docs/getting-started/setup/customizing-environments/) using the requirement files provided.
 
 The `environment.yml` and `gpu_environment.yml` files contain the the conda environments for CPU and GPU environments. ML tasks that utilize RAPIDS require the GPU environment.
 
