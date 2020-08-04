@@ -1,0 +1,37 @@
+name: saturn
+channels:
+- https://conda.saturncloud.io/pkgs
+- nvidia
+- rapidsai
+- pytorch
+- numba
+- defaults
+- conda-forge
+- saturncloud
+dependencies:
+- blas=*=mkl
+- bokeh
+- dask-ml
+- dask-saturn=0.0.4
+- dask-xgboost
+- dask=2.20.0
+- distributed=2.20.0
+- fastparquet
+- geopandas
+- graphviz
+- ipykernel
+- ipywidgets
+- llvmlite=0.32.1
+- matplotlib
+- numba=0.49.1
+- numpy
+- pandas
+- pip
+- prefect
+- pyarrow
+- python=3.7
+- rapids=0.14.1=cuda10.1_py37_0
+- s3fs
+- scikit-learn
+- scipy
+- xgboost==0.90
