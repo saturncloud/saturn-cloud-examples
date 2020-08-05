@@ -2,7 +2,7 @@
 
 This demo contains an end-to-end data analysis and machine learning pipeline using publicly-available data.
 
-## Data 
+## Data
 
 Yellow taxi trip data from the [NYC Taxi and Limousine Comission (TLC)](https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page). The data is [available on S3](https://registry.opendata.aws/nyc-tlc-trip-records-pds/) at `s3://nyc-tlc/`.
 
@@ -49,7 +49,7 @@ Ensure that you have the [proper S3 credentials configured](https://www.saturncl
 
 ### Dask clusters
 
-Dask clusters are configured and launched from within the notebook using the `dask-saturn` package. All worker nodes will utilize the same image and start script configured for the Jupyter server. You can also [manage them from the Saturn UI](https://www.saturncloud.io/docs/getting-started/spinning/dask/#spinning-up-dask-clusters-from-the-ui), and watch the logs on the Logs page. 
+Dask clusters are configured and launched from within the notebook using the `dask-saturn` package. All worker nodes will utilize the same image and start script configured for the Jupyter server. You can also [manage them from the Saturn UI](https://www.saturncloud.io/docs/getting-started/spinning/dask/#spinning-up-dask-clusters-from-the-ui), and watch the logs on the Logs page.
 
 # Components
 
@@ -59,7 +59,7 @@ Dask clusters are configured and launched from within the notebook using the `da
 - `etl.ipynb`: collects the CSVs from S3, reconciles schemas, then writes to parquet files
 - `ml_datasets.ipynb`: read the parquet files and creates datasets for the machine learning tasks
 
-The ML datasets are for two regression tasks: 
+The ML datasets are for two regression tasks:
 1. Predict total amount of taxi ride in dollars
 1. Predict tip percentage (tip amount / total amount) for rides that were paid for with credit cards
 
@@ -72,4 +72,37 @@ The ML datasets are for two regression tasks:
 
 ## Dashboard
 
-The dashboard provides several views of the data across all time, as well as more detailed analysis for recent data. There are visualization of the performance of the different machine learning models as well as a widget for live-scoring new entries.
+The dashboard provides several views of the data across all time, as well as more detailed analysis for recent data. There are visualization of the performance of the different machine learning models as well as a widget for live-scoring new entries. To deploy the dashboard locally do:
+
+```bash
+cd dashboard
+panel serve dashboard.ipynb
+```
+
+In Saturn on the "Deployments" Page start a deployment using the command:
+
+```cd dashboard && python -m panel serve dashboard.ipynb --port=8000 --address="0.0.0.0" --allow-websocket-origin="*"```
+
+## Files
+
+This is the directory structure and files that are written to S3, based on the `TAXI_S3` environment variable.
+
+- `[TAXI_S3]/`
+    - `data/`
+        - `taxi_parquet/`: Full taxi data in parquet format
+            - `_metadata`
+            - `part.0.parquet`
+            - ...
+        - `ml/`: Train/test datasets for ML tasks (parquet)
+            - `tip_train/`
+            - `tip_test/`
+            - ...
+        - `dashboard/`: Aggregated data for dashboard (CSV)
+    - `ml_results/`: CSV filename format is `[ml task]__[tool]__[model].csv`
+        - `predictions/`: Test predictions for each ML model (parquet)
+            - `tip__scikit__elastic_net/`
+            - `tip__dask__random_forest/`
+        - `metrics/`: Summary metrics for each ML model (CSV)
+            - `tip__scikit__elastic_net.csv`
+            - `tip__dask__random_forest.csv`
+            - ...
