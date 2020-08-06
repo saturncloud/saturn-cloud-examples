@@ -59,9 +59,10 @@ Dask clusters are configured and launched from within the notebook using the `da
 - `etl.ipynb`: collects the CSVs from S3, reconciles schemas, then writes to parquet files
 - `ml_datasets.ipynb`: read the parquet files and creates datasets for the machine learning tasks
 
-The ML datasets are for two regression tasks:
-1. Predict total amount of taxi ride in dollars
-1. Predict tip percentage (tip amount / total amount) for rides that were paid for with credit cards
+The ML datasets are centered around two tasks:
+1. "amount": Predict total amount of taxi ride in dollars (regression)
+2. "tip": Predict tip percentage (tip amount / total amount) for rides that were paid for with credit cards (regression)
+    - This can also be turned into a classification problem where we predict a "high tip" ride (tip percentage >15%)
 
 ## Machine learning
 

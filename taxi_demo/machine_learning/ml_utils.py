@@ -2,6 +2,7 @@ import os
 import s3fs
 import pyarrow.parquet as pq
 import pandas as pd
+import cloudpickle
 
 s3 = s3fs.S3FileSystem()
 
@@ -16,10 +17,15 @@ def read_parquet_dir(path: str) -> pd.DataFrame:
     return pq.ParquetDataset(files, filesystem=s3).read().to_pandas()
 
 
-def write_metric_df(taxi_path: str, ml_task: str, tool: str, model: str, rmse: float) -> pd.DataFrame:
-    metrics = pd.DataFrame([('tip', 'scikit', 'elastic_net', rmse)], 
-                           columns=['ml_task', 'tool', 'model', 'rmse'])
-    metrics.to_csv(f'{taxi_path}/ml_results/metrics/{ml_task}__{tool}__{model}.csv', index=False)
+def write_model(taxi_path: str, ml_task: str, tool: str, model_name: str, model):
+    with s3.open(f'{taxi_path}/ml_results/models/{ml_task}__{tool}__{model_name}.pkl', 'wb') as f:
+        cloudpickle.dump(model, f)
+    
+
+def write_metric_df(taxi_path: str, ml_task: str, tool: str, model_name: str, metric: str, value: float) -> pd.DataFrame:
+    metrics = pd.DataFrame([(ml_task, tool, model_name, metric, value)], 
+                           columns=['ml_task', 'tool', 'model', 'metric', 'value'])
+    metrics.to_csv(f'{taxi_path}/ml_results/metrics/{ml_task}__{tool}__{model_name}.csv', index=False)
     
     return metrics
     
