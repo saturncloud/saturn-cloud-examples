@@ -11,12 +11,14 @@ That app assumes that the model has been stored in a `.pkl` file in S3. Deployme
 * `MODEL_BUCKET`: name of an S3 bucket with the model files
 * `MODEL_FILE`: key of the model file in that bucket
 
+The documentation here assumes that you have already set up AWS credentials in Saturn.
+
 ## Deploying in Saturn
 
 1. Go to the "Jupyter" page and create a new project.
     * `Name`: "test-model-project"
     * `Size`: pick the smallest possible size
-    * In `start_script`, add `pip install flask`
+    * In `start_script`, add `pip install flask`. If your model needs other libraries that are not available in the standard `saturn` images, add those here as well.
     * In `Environment Variables`:
         - `MODEL_BUCKET=saturn-titan`
         - `MODEL_FILE=nyc-taxi/ml_results/models/tip__scikit__elastic_net.pkl`
@@ -59,11 +61,11 @@ That app assumes that the model has been stored in a `.pkl` file in S3. Deployme
         },
         headers={
             "Content-Type": "application/json",
-            "Authorization": f"{SATURN_TOKEN}"
+            "Authorization": f"token {SATURN_TOKEN}"
         }
     )
 
-    result.content
+    result.json()
     ```
 
 ## Testing Locally
@@ -73,24 +75,11 @@ export MODEL_BUCKET=saturn-titan
 export MODEL_FILE=nyc-taxi/ml_results/models/tip__scikit__elastic_net.pkl
 ```
 
-```shell
-from datetime import datetime
-
-payload = {
-    "passenger_count": 2,
-    "tpep_pickup_datetime": datetime(2019, 1, 1),
-    "pickup_taxizone_id": "37",
-    "dropoff_taxizone_id": "215"
-}
-
-df = pd.DataFrame(payload, index=[0])
-```
-
 Get a prediction
 
 ```shell
 curl -X POST \
-    http://0.0.0.0:5090/api/predict \
+    http://0.0.0.0:8000/api/predict \
     -d '{"passenger_count": 1, "tpep_pickup_datetime": "2019-01-01T11:15:38Z", "pickup_taxizone_id": "37", "dropoff_taxizone_id": "215"}'
 ```
 
@@ -98,6 +87,6 @@ Get information describing the expected input schema and use `jq` to pretty-prin
 
 ```shell
 curl -X GET \
-    http://0.0.0.0:5090/api/model-info \
+    http://0.0.0.0:8000/api/model-info \
     jq .
 ```
