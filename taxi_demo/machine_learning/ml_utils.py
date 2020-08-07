@@ -25,6 +25,9 @@ class TipVars(object):
     ]
     features = numeric_feat + categorical_feat
     y_col = 'tip_fraction'
+    high_tip = 0.25
+    y_clf = 'high_tip'
+
 
     elastic_net_grid_search_params = {
         'clf__l1_ratio': np.arange(0, 1.01, 0.01),
