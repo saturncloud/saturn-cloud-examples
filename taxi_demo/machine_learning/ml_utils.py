@@ -27,8 +27,8 @@ class TipVars(object):
     y_col = 'tip_fraction'
 
     elastic_net_grid_search_params = {
-#         'clf__l1_ratio': np.arange(0, 1.01, 0.01),  # TODO: un-comment this and run full grids
-        'clf__alpha': [0.5, 1, 2],
+        'clf__l1_ratio': np.arange(0, 1.01, 0.01),
+        'clf__alpha': [0, 0.5, 1, 2],
     }
     
 
