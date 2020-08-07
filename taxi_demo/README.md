@@ -23,7 +23,7 @@ This example will work with images that are included with Saturn, but you can al
 
 To start running this demo inside Saturn Cloud, you can [create a new Jupyter workspace](https://www.saturncloud.io/docs/getting-started/spinning/jupyter/). If you created a custom image, make sure to select it in the "Image" field. Under advanced settings, include the following in the "Start Script" to specify which S3 path to write data to.
 
-```
+```bash
 export TAXI_S3='s3://saturn-titan/nyc-taxi'
 ```
 
@@ -35,7 +35,7 @@ If you want to run the machine learning examples that utilize GPUs, you will nee
 
 The `project/` folder inside your Jupyter workspace is tracked using [Saturn's version control](https://www.saturncloud.io/docs/collaboration/version-control/), which enables you to collaborate with colleagues on Saturn. If you want to make changes to the demo code, you should copy the folder from the `saturn-cloud-examples` repo into your project folder. Open a new terminal in JupyterLab and run the following (this is a one-time thing and not necessary in the start script):
 
-```
+```bash
 git clone https://github.com/saturncloud/saturn-cloud-examples.git
 cp -r saturn-cloud-examples/taxi_demo /home/jovyan/project
 ```
@@ -66,10 +66,33 @@ The ML datasets are centered around two tasks:
 
 ## Machine learning
 
-1. Linear models
+There are several items that need to be tracked for the various machine learning experiments, namely:
+- `TAXI_S3` S3 file path
+- Metadata about which experiment is running
+- Trained models (pickle files)
+- Test set predictions
+- Test set metrics
+
+There is a helper class to avoid repeated code in each notebook: `machine_learning.ml_utils.MLUtils`. Each notebook initializes an `MLUtils` object to keep track of metadata, and to use methods that abstract away some pieces:
+
+```python
+from ml_utils import MLUtils
+
+ml_utils = MLUtils(
+    ml_task='tip',
+    tool='dask',
+    model='elastic_net',
+)
+
+ml_utils.write_model(...)
+ml_utils.write_predictions(...)
+```
+
+1. Elastic Net + hyperparameter tuning
 1. Random Forest
 1. XGBoost
-1. Model deployment
+
+## Model deployment
 
 ## Dashboard
 
@@ -107,3 +130,8 @@ This is the directory structure and files that are written to S3, based on the `
             - `tip__scikit__elastic_net.csv`
             - `tip__dask__random_forest.csv`
             - ...
+            
+            
+# Known issues / troubleshooting
+
+- When trying to immediate read back in a DataFrame written to S3 in parquet with Dask and the `pyarrow` engine, sometimes `pyarrow` gets confused and thinks the files don't exist (`OSError: Passed non-file path: ...`). Restarting the kernel fixes this (or load dataframe in a new notebook).
