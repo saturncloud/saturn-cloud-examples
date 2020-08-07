@@ -129,3 +129,6 @@ venv.bak/
 
 # Mac stuff
 .DS_Store
+
+# backup files from aspell, sed
+*.bak
