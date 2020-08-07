@@ -121,7 +121,6 @@ def predict():
     del df["tpep_pickup_datetime"]
     pred = model.predict(df)
 
-    # Return a comma-delimited list of tokens
     return(jsonify({"prediction": pred[0]}))
 
 
