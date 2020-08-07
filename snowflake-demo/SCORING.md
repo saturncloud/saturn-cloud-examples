@@ -26,14 +26,14 @@ The documentation here assumes that you have already set up AWS credentials in S
 3. In Jupyter, add the deployment code.
     * open a terminal and run `touch /home/jovyan/project/run-model.py`
     * copy the contents of `run-model.py` from this repo into that file and save it
-    * after 1 minute, Saturn should automatically snapshot this change and push it to the git repo with your poject code. You'll know this worked if you run `git log -n 3` inside `/home/jovyan/project` and see a recent commit called "snapshot".
+    * after 1 minute, Saturn should automatically snapshot this change and push it to the git repo with your project code. You'll know this worked if you run `git log -n 3` inside `/home/jovyan/project` and see a recent commit called "snapshot".
 4. Close Jupyter Lab. Return to the Saturn UI.
 5. Go to the "Deployments" page and create a deployment.
     * `Name`: "tip-model"
     * `Project`: "test-model-project"
     * `Command`: `python /home/jovyan/project/run-model.py`
     * `Instance Count`: 1
-    * `Instance Size`: "Medium - 2 cores - 4 GBM RAM"
+    * `Instance Size`: "Medium - 2 cores - 4 GB RAM"
 6. Start the deployment
     * you can watch the sequence of startup events on the "Logs" page
 7. Once it's started up, any code running inside Saturn access it! Try that out.
