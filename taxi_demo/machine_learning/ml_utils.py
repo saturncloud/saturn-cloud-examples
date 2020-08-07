@@ -64,18 +64,22 @@ class MLUtils(object):
         files = s3.glob(f'{path}/*.parquet')
         return pq.ParquetDataset(files, filesystem=s3).read().to_pandas()
 
-    def write_model(self, model):
+    def write_model(self, model) -> None:
         """
         Write a trained model to S3 (technically works with any cloudpickle-able object).
         """
-        with s3.open(f'{self.taxi_path}/ml_results/models/{self.ml_task}__{self.tool}__{self.model}.pkl', 'wb') as f:
+        s3_key = f'{self.taxi_path}/ml_results/models/{self.ml_task}__{self.tool}__{self.model}.pkl'
+        print(f"uploading model to '{s3_key}'")
+        with s3.open(s3_key, 'wb') as f:
             cloudpickle.dump(model, f)
+        print("successfully uploaded model")
 
     def write_predictions(self, df, rm=True):
         """
         Write a parquet file with model predictions on the test set
         """
         path = f'{self.taxi_path}/ml_results/predictions/{self.ml_task}__{self.tool}__{self.model}'
+        print(f"Writing predictions to '{path}'")
         if rm and s3.exists(path):
             s3.rm(path, recursive=True)
 
@@ -83,6 +87,7 @@ class MLUtils(object):
             df.to_parquet(f'{path}/0.parquet', index=False)
         else:
             df.to_parquet(path, engine='pyarrow', compression='snappy')
+        print("Done writing predictions")
 
     def write_metric_df(self, metric: str, value: float) -> pd.DataFrame:
         """
