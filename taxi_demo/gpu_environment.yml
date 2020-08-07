@@ -2,7 +2,7 @@ name: saturn
 channels:
 - https://conda.saturncloud.io/pkgs
 - nvidia
-- rapidsai
+- rapidsai-nightly
 - pytorch
 - numba
 - defaults
@@ -30,7 +30,7 @@ dependencies:
 - prefect
 - pyarrow
 - python=3.7
-- rapids=0.14.1=cuda10.1_py37_0
+- rapids=0.15
 - s3fs
 - scikit-learn
 - scipy
