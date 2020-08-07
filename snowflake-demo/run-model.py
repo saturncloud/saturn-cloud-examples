@@ -28,6 +28,7 @@ def _get_env_var(var_name: str) -> str:
         logger.fatal(msg)
         raise RuntimeError(msg)
 
+
 MODEL_BUCKET = _get_env_var("MODEL_BUCKET")
 MODEL_FILE = _get_env_var("MODEL_FILE")
 
@@ -122,6 +123,7 @@ def predict():
 
     # Return a comma-delimited list of tokens
     return(jsonify({"prediction": pred[0]}))
+
 
 # NOTE: Saturn only allows deployments over port 8000
 #   * https://docs.saturncloud.io/en/articles/3833353-deploying-dashboards
