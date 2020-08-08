@@ -2,7 +2,7 @@ name: taxi-demo
 channels:
 - https://conda.saturncloud.io/pkgs
 - nvidia
-- rapidsai-nightly
+- rapidsai
 - pytorch
 - numba
 - defaults
@@ -30,7 +30,7 @@ dependencies:
 - prefect
 - pyarrow
 - python=3.7
-- rapids=0.15
+- rapids=0.14.1=cuda10.1_py37_0
 - s3fs
 - scikit-learn
 - scipy
