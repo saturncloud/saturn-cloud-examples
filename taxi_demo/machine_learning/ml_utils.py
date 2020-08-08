@@ -3,7 +3,6 @@ import s3fs
 import pyarrow.parquet as pq
 import pandas as pd
 import numpy as np
-import cloudpickle
 
 s3 = s3fs.S3FileSystem()
 
@@ -71,6 +70,7 @@ class MLUtils(object):
         """
         Write a trained model to S3 (technically works with any cloudpickle-able object).
         """
+        import cloudpickle
         s3_key = f'{self.taxi_path}/ml_results/models/{self.ml_task}__{self.tool}__{self.model}.pkl'
         print(f"uploading model to '{s3_key}'")
         with s3.open(s3_key, 'wb') as f:
