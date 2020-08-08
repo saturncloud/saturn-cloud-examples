@@ -34,4 +34,4 @@ dependencies:
 - s3fs
 - scikit-learn
 - scipy
-- xgboost==0.90
+- xgboost
