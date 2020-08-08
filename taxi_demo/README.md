@@ -130,8 +130,8 @@ This is the directory structure and files that are written to S3, based on the `
             - `tip__scikit__elastic_net.csv`
             - `tip__dask__random_forest.csv`
             - ...
-            
-            
+
+
 # Known issues / troubleshooting
 
 - When trying to immediate read back in a DataFrame written to S3 in parquet with Dask and the `pyarrow` engine, sometimes `pyarrow` gets confused and thinks the files don't exist (`OSError: Passed non-file path: ...`). Restarting the kernel fixes this (or load dataframe in a new notebook).
