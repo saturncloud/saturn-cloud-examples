@@ -1,4 +1,4 @@
-name: saturn
+name: taxi-demo
 channels:
 - https://conda.saturncloud.io/pkgs
 - nvidia
