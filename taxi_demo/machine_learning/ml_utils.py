@@ -3,6 +3,9 @@ import s3fs
 import pyarrow.parquet as pq
 import pandas as pd
 import numpy as np
+from contextlib import contextmanager
+import time
+from datetime import timedelta
 
 s3 = s3fs.S3FileSystem()
 
@@ -50,6 +53,7 @@ class MLUtils(object):
         self.model = model
         self.tip_vars = TipVars()
         self.taxi_path = self.get_taxi_path()
+        self.fit_seconds = -1
 
     def get_taxi_path(self) -> str:
         """
@@ -65,6 +69,14 @@ class MLUtils(object):
         """
         files = s3.glob(f'{path}/*.parquet')
         return pq.ParquetDataset(files, filesystem=s3).read().to_pandas()
+    
+    @contextmanager
+    def time_fit(self):
+        start = time.perf_counter()
+        yield
+        end = time.perf_counter()
+
+        self.fit_seconds = end - start
 
     def write_model(self, model) -> None:
         """
@@ -96,8 +108,8 @@ class MLUtils(object):
         """
         Write a CSV with summary metrics for models evaluated on the test set
         """
-        metrics = pd.DataFrame([(self.ml_task, self.tool, self.model, metric, value)], 
-                               columns=['ml_task', 'tool', 'model', 'metric', 'value'])
+        metrics = pd.DataFrame([(self.ml_task, self.tool, self.model, metric, value, self.fit_seconds)], 
+                               columns=['ml_task', 'tool', 'model', 'metric', 'value', 'fit_seconds'])
         metrics.to_csv(f'{self.taxi_path}/ml_results/metrics/{self.ml_task}__{self.tool}__{self.model}.csv', index=False)
 
         return metrics
