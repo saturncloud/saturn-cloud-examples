@@ -76,7 +76,9 @@ Go to the "Deployments" page in Saturn Cloud and create a deployment.
 - Name: `taxi-dashboard`
 - Project: `saturn-taxi` (or whatever you named your CPU Jupyter server)
 - Command:
-    ```cd taxi_demo/dashboard && python -m panel serve dashboard.ipynb --port=8000 --address="0.0.0.0" --allow-websocket-origin="*"```
+    ```bash
+    python -m panel serve taxi_demo/dashboard/dashboard.ipynb --port=8000 --address="0.0.0.0" --allow-websocket-origin="*"
+    ```
 - Instance Count: 1
 - Instance Size: Large - 2 cores - 16 GB RAM
 
