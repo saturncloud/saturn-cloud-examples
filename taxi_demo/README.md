@@ -3,8 +3,6 @@
 |<img src="https://patch.com/img/cdn20/users/22965231/20180313/040305/styles/raw/public/processed_images/shutterstock_110928791-1520971084-4672.jpg" width="200" /> | <img src="https://pbs.twimg.com/media/EeBsCTPX0AAICkt.png" width="400" />|
 | -- | -- |
 
-# NYC Taxi analysis with Saturn Cloud
-
 The notebooks in this repo showcase an end-to-end data science workflow using [Saturn Cloud](https://www.saturncloud.io/).
 
 > Saturn Cloud is a data science and machine learning platform for scalable Python analytics. It automates DevOps and ML infrastructure with cloud-based Jupyter and Dask for big data, while leveraging Docker and Kubernetes so that your work is reproducible, shareable, and ready for production. 
