@@ -1,8 +1,29 @@
-# NYC Taxi Demo
+# NYC Taxi analysis with Saturn Cloud
 
-This demo contains an end-to-end data analysis and machine learning pipeline using publicly-available data, all developed and hosted using Saturn Cloud.
+|<img src="https://patch.com/img/cdn20/users/22965231/20180313/040305/styles/raw/public/processed_images/shutterstock_110928791-1520971084-4672.jpg" width="200" /> | <img src="https://pbs.twimg.com/media/EeBsCTPX0AAICkt.png" width="400" />|
+| -- | -- |
+
+# NYC Taxi analysis with Saturn Cloud
+
+The notebooks in this repo showcase an end-to-end data science workflow using [Saturn Cloud](https://www.saturncloud.io/).
+
+> Saturn Cloud is a data science and machine learning platform for scalable Python analytics. It automates DevOps and ML infrastructure with cloud-based Jupyter and Dask for big data, while leveraging Docker and Kubernetes so that your work is reproducible, shareable, and ready for production. 
+
+The following tasks are performed:
+
+1. Ingest 1.6 billion CSV records and write to optimized Parquet files
+1. Create train/test sets for machine learning tasks
+1. Train a number of machine learning models
+1. Deploy models via REST API
+1. Create dashboard with exploratory analysis and ML model diagnostics
+
+The dashboard features a live-scoring widget using a model hosted with Saturn Cloud.
+
+All notebooks are executable within Saturn Cloud except for the machine learning models trained with Spark. See below for how to run it yourself!
 
 ## Quickstart
+
+If you don't already use Saturn Cloud, [see how to get started here](https://www.saturncloud.io/docs/getting-started/). 
 
 Create two Jupyter Servers for development, and two Deployments for the dashboard and ML model serving.
 
