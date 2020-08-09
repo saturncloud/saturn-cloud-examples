@@ -1,14 +1,67 @@
 # NYC Taxi Demo
 
-This demo contains an end-to-end data analysis and machine learning pipeline using publicly-available data.
+This demo contains an end-to-end data analysis and machine learning pipeline using publicly-available data, all developed and hosted using Saturn Cloud.
 
-## Data
+## Quickstart
+
+Create two Jupyter Servers for development, and two Deployments for the dashboard and ML model serving.
+
+#### Jupyter Server: CPU environment
+
+This Jupyter Server sets up and executes most of the pieces of the project:
+- Launch CPU Dask cluster
+- Data ingestion and ETL
+- Exploratory analysis and dashboard development
+- Machine learning model training (except GPU/RAPIDS)
+- Model scoring API
+
+1. Create Jupyter server
+    - Name: `taxi-demo`
+    - Disk Space: `100G`
+    - Image: Image built with `environment.yml`
+    - Environment variables:
+        - `TAXI_S3 `: S3 path for all data and model results (i.e. `s3://mybucket/mypath`)
+        - `MODEL_FILE`: Filename of model to deploy (i.e. `tip_scikit_xgboost.pkl`)
+        - `MODEL_URL`: URL for deployed model (URL field from Saturn Deployment, i.e. `https://taxi-model.demo.saturnenterprise.io`)
+1. Launch server, open Jupyter Lab, then open a terminal window to get code
+    ```bash
+    git clone https://github.com/saturncloud/saturn-cloud-examples.git
+    cp -r saturn-cloud-examples/taxi_demo /home/jovyan/project
+    ```
+1. Ingest data and write files (execute Jupyter notebooks)
+    - `etl/etl.ipynb`
+    - `etl/ml_datasets.ipynb`
+1. Run dashboard EDA and aggregated files
+    - `dashboard/data_aggregation.ipynb`
+    - See "Dashboard" section below for developing/testing dashboard
+1. Run machine learning experiments (except RAPIDS notebooks)
+    - `machine_learning/*.ipynb`
+1. See "Model Deployment" section below to testing model scoring API
+
+
+#### Jupyter server: GPU environment: GPU machine learning
+
+This Jupyter Server sets up and executes the machine learning notebooks that utilize GPU Dask clusters.
+
+1. Create Jupyter server
+    - Name: `taxi-demo-gpu`
+    - Disk Space: `100G`
+    - Image: Image built with `gpu_environment.yml`
+    - Environment variables:
+        - `TAXI_S3 `: S3 path for all data and model results (i.e. `s3://mybucket/mypath`)
+1. Launch server, open Jupyter Lab, then get code running the same commands from above
+1. Run GPU machine learning experiments
+    - `machine_learning/*rapids*.ipynb`
+
+
+
+## More details
+
+### Data
 
 Yellow taxi trip data from the [NYC Taxi and Limousine Comission (TLC)](https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page). The data is [available on S3](https://registry.opendata.aws/nyc-tlc-trip-records-pds/) at `s3://nyc-tlc/`.
 
 The data dictionary for the yellow trip data is available [here](https://www1.nyc.gov/assets/tlc/downloads/pdf/data_dictionary_trip_records_yellow.pdf). Note that this dictionary is for the latest release of data (2019), and the schema/data has changed a few times over the years.
-
-## Running in Saturn Cloud
 
 ### Environment / Images
 
@@ -94,6 +147,8 @@ ml_utils.write_predictions(...)
 
 ## Model deployment
 
+**TODO**
+
 ## Dashboard
 
 The dashboard provides several views of the data across all time, as well as more detailed analysis for recent data. There are visualization of the performance of the different machine learning models as well as a widget for live-scoring new entries. To deploy the dashboard locally do:
@@ -125,10 +180,14 @@ This is the directory structure and files that are written to S3, based on the `
     - `ml_results/`: CSV filename format is `[ml task]__[tool]__[model].csv`
         - `predictions/`: Test predictions for each ML model (parquet)
             - `tip__scikit__elastic_net/`
-            - `tip__dask__random_forest/`
+            - `tip__dask__xgboost/`
         - `metrics/`: Summary metrics for each ML model (CSV)
             - `tip__scikit__elastic_net.csv`
-            - `tip__dask__random_forest.csv`
+            - `tip__dask__xgboost.csv`
+            - ...
+        - `models/`: Trained models for deployment
+            - `tip__scikit__elastic_net.pkl`
+            - `tip__dask__xgboost.pkl`
             - ...
 
 

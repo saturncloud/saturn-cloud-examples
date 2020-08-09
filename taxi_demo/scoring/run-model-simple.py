@@ -7,11 +7,11 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
-MODEL_BUCKET = os.environ["MODEL_BUCKET"]
+TAXI_PATH = os.environ["TAXI_S3"]
 MODEL_FILE = os.environ["MODEL_FILE"]
 
 s3 = s3fs.S3FileSystem()
-model = cloudpickle.load(s3.open(f's3://{MODEL_BUCKET}/{MODEL_FILE}', 'rb'))
+model = cloudpickle.load(s3.open(f's3://{TAXI_PATH}/ml_results/models/{MODEL_FILE}', 'rb'))
 
 features = [
     'pickup_weekday', 
