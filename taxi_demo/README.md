@@ -22,8 +22,9 @@ This Jupyter Server sets up and executes most of the pieces of the project:
     - Image: Image built with `environment.yml`
     - Environment variables:
         - `TAXI_S3 `: S3 path for all data and model results (i.e. `s3://mybucket/mypath`)
+            - Make sure that you have credentials set up to read/write (see "Credentials" section)
         - `MODEL_FILE`: Filename of model to deploy (i.e. `tip_scikit_xgboost.pkl`)
-        - `MODEL_URL`: URL for deployed model (URL field from Saturn Deployment, i.e. `https://taxi-model.demo.saturnenterprise.io`)
+        - `MODEL_URL`: URL for deployed model (URL field from Saturn Deployment, i.e. `https://taxi-model-deploy.demo.saturnenterprise.io`)
 1. Launch server, open Jupyter Lab, then open a terminal window to get code
     ```bash
     git clone https://github.com/saturncloud/saturn-cloud-examples.git
@@ -37,7 +38,7 @@ This Jupyter Server sets up and executes most of the pieces of the project:
     - See "Dashboard" section below for developing/testing dashboard
 1. Run machine learning experiments (except RAPIDS notebooks)
     - `machine_learning/*.ipynb`
-1. See "Model Deployment" section below to testing model scoring API
+1. See "Model Deployment" section below for testing model scoring API
 
 
 #### Jupyter server: GPU environment: GPU machine learning
@@ -64,7 +65,7 @@ This Jupyter Server sets up and executes the machine learning notebooks that uti
 Go to the "Deployments" page in Saturn Cloud and create a deployment.
 - Name: `taxi-model`
 - Project: `saturn-taxi` (or whatever you named your CPU Jupyter server)
-- Command: `python taxi_demo/run-model-simple.py`
+- Command: `python taxi_demo/scoring/run-model-simple.py`
 - Instance Count: 1
 - Instance Size: Medium - 2 cores - 4 GB RAM
 
@@ -75,7 +76,7 @@ Go to the "Deployments" page in Saturn Cloud and create a deployment.
 - Name: `taxi-dashboard`
 - Project: `saturn-taxi` (or whatever you named your CPU Jupyter server)
 - Command:
-    ```cd dashboard && python -m panel serve dashboard.ipynb --port=8000 --address="0.0.0.0" --allow-websocket-origin="*"```
+    ```cd taxi_demo/dashboard && python -m panel serve dashboard.ipynb --port=8000 --address="0.0.0.0" --allow-websocket-origin="*"```
 - Instance Count: 1
 - Instance Size: Large - 2 cores - 16 GB RAM
 

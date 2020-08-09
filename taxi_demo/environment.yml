@@ -15,6 +15,7 @@ dependencies:
 - distributed==2.20.0
 - fastparquet
 - firefox
+- flask
 - geckodriver
 - geopandas
 - geoviews
