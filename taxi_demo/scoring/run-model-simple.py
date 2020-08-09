@@ -39,7 +39,7 @@ def predict():
     df["pickup_week_hour"] = (df["pickup_weekday"] * 24) + df["pickup_hour"]
 
     pred = model.predict(df[features])
-    return(jsonify({"prediction": pred[0]}))
+    return(jsonify({"prediction": str(pred[0])}))
 
 
 if __name__ == '__main__':

@@ -23,7 +23,7 @@ This Jupyter Server sets up and executes most of the pieces of the project:
     - Environment variables:
         - `TAXI_S3 `: S3 path for all data and model results (i.e. `s3://mybucket/mypath`)
             - Make sure that you have credentials set up to read/write (see "Credentials" section)
-        - `MODEL_FILE`: Filename of model to deploy (i.e. `tip_scikit_xgboost.pkl`)
+        - `MODEL_FILE`: Filename of model to deploy (i.e. `tip__scikit__xgboost.pkl`)
         - `MODEL_URL`: URL for deployed model (URL field from Saturn Deployment, i.e. `https://taxi-model-deploy.demo.saturnenterprise.io`)
 1. Launch server, open Jupyter Lab, then open a terminal window to get code
     ```bash
