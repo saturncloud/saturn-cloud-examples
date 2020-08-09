@@ -16,7 +16,7 @@ This Jupyter Server sets up and executes most of the pieces of the project:
 - Model scoring API
 
 1. Create Jupyter server
-    - Name: `taxi-demo`
+    - Name: `saturn-taxi`
     - Disk Space: `100G`
     - Image: Image built with `environment.yml`
     - Environment variables:
@@ -44,7 +44,7 @@ This Jupyter Server sets up and executes most of the pieces of the project:
 This Jupyter Server sets up and executes the machine learning notebooks that utilize GPU Dask clusters.
 
 1. Create Jupyter server
-    - Name: `taxi-demo-gpu`
+    - Name: `saturn-taxi-gpu`
     - Disk Space: `100G`
     - Image: Image built with `gpu_environment.yml`
     - Environment variables:
@@ -53,6 +53,29 @@ This Jupyter Server sets up and executes the machine learning notebooks that uti
 1. Run GPU machine learning experiments
     - `machine_learning/*rapids*.ipynb`
 
+
+**NOTE**: Any Spark machine learning notebooks (`machine_learning/*spark*.ipynb`) are included for reference purposes and are not executable within Saturn Cloud. 
+
+
+#### Deployment: Model Scoring API
+
+Go to the "Deployments" page in Saturn Cloud and create a deployment.
+- Name: `taxi-model`
+- Project: `saturn-taxi` (or whatever you named your CPU Jupyter server)
+- Command: `python taxi_demo/run-model-simple.py`
+- Instance Count: 1
+- Instance Size: Medium - 2 cores - 4 GB RAM
+
+
+#### Deployment: Dashboard
+
+Go to the "Deployments" page in Saturn Cloud and create a deployment.
+- Name: `taxi-dashboard`
+- Project: `saturn-taxi` (or whatever you named your CPU Jupyter server)
+- Command:
+    ```cd dashboard && python -m panel serve dashboard.ipynb --port=8000 --address="0.0.0.0" --allow-websocket-origin="*"```
+- Instance Count: 1
+- Instance Size: Large - 2 cores - 16 GB RAM
 
 
 ## More details
@@ -147,18 +170,20 @@ ml_utils.write_predictions(...)
 
 ## Model deployment
 
-**TODO**
+See `scoring/README.md`
 
 ## Dashboard
 
-The dashboard provides several views of the data across all time, as well as more detailed analysis for recent data. There are visualization of the performance of the different machine learning models as well as a widget for live-scoring new entries. To deploy the dashboard locally do:
+The dashboard provides several views of the data across all time, as well as more detailed analysis for recent data. There are visualizations of the performance of the different machine learning models as well as a widget for live-scoring new entries. To deploy the dashboard from a Jupyter server, open a new terminal and run:
 
 ```bash
 cd dashboard
 panel serve dashboard.ipynb
 ```
 
-In Saturn on the "Deployments" Page start a deployment using the command:
+The dashboard will now be deployed on port `5006` behind the Jupyter proxy. To access it, copy the URL from the address bar when you're inside a Jupyter Lab interface, and replace `lab/*` with `proxy/5006/dashboard`
+
+In Saturn on the "Deployments" Page, start a deployment using the command:
 
 ```cd dashboard && python -m panel serve dashboard.ipynb --port=8000 --address="0.0.0.0" --allow-websocket-origin="*"```
 
