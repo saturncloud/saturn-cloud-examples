@@ -18,6 +18,7 @@ This Jupyter Server sets up and executes most of the pieces of the project:
 1. Create Jupyter server
     - Name: `saturn-taxi`
     - Disk Space: `100G`
+    - Size: `8XLarge - 32 cores - 256 GB RAM`
     - Image: Image built with `environment.yml`
     - Environment variables:
         - `TAXI_S3 `: S3 path for all data and model results (i.e. `s3://mybucket/mypath`)
@@ -46,6 +47,7 @@ This Jupyter Server sets up and executes the machine learning notebooks that uti
 1. Create Jupyter server
     - Name: `saturn-taxi-gpu`
     - Disk Space: `100G`
+    - Size: `T4-XLarge - 4 cores - 16 GB RAM - 1 GPU`
     - Image: Image built with `gpu_environment.yml`
     - Environment variables:
         - `TAXI_S3 `: S3 path for all data and model results (i.e. `s3://mybucket/mypath`)
