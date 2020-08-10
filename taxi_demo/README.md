@@ -19,6 +19,10 @@ The dashboard features a live-scoring widget using a model hosted with Saturn Cl
 
 All notebooks are executable within Saturn Cloud except for the machine learning models trained with Spark. See below for how to run it yourself!
 
+<img src="img/pipeline.png" width="800">
+
+![](img/dashboard1.png)
+
 ## Quickstart
 
 If you don't already use Saturn Cloud, [see how to get started here](https://www.saturncloud.io/docs/getting-started/). 
