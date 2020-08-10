@@ -9,7 +9,7 @@ The notebooks in this repo showcase an end-to-end data science workflow using [S
 
 The following tasks are performed:
 
-1. Ingest 1.6 billion CSV records and write to optimized Parquet files
+1. Ingest 1.6 billion records from CSV files and write to optimized Parquet files
 1. Create train/test sets for machine learning tasks
 1. Train a number of machine learning models
 1. Deploy models via REST API
