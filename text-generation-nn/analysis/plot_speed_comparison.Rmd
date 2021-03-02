@@ -3,6 +3,12 @@ title: "1 GPU vs 3 GPU speed comparison"
 output: html_document
 ---
 
+This example shows the difference between training a neural network on a single GPU vs 3 GPUs on Saturn Cloud. The data comes from the text-generation-nn example (but specifically the comparison notebook in this analysis subfolder). The neural network is relatively small (four LSTM layers with 128 nodes), and the data is only tens of thousands of pet names, so not that large.
+
+The data shows that on a per-epoch basis, the 3-GPU model is equivalent to the 1-GPU model with 3-times the batch size. This isn't surprising since at the end of each batch all the 3-GPU results are compiled together into a single batch to compute the new values.
+
+That said, simple models generally learn faster from smaller batch sizes, so it takes fewer epochs for a smaller batch size model to train. Here we can see that the model does best with a small batch and high learning rate. Further, from the time based graph, we can see that the cost of communicating between the GPUs is sufficiently high that each epoch trains quite a bit slower in the multi-GPU case. Putting this all together, the best configuration for this model is a single GPU with low batch size and high learning rate. This shows that not all models benefit from multi-GPU setups.
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, dpi = 300, fig.width = 8, fig.height = 6)
