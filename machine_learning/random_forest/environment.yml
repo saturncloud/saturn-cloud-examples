@@ -1,12 +1,10 @@
 name: saturn
 channels:
-- https://conda.saturncloud.io/pkgs
 - nvidia
 - rapidsai
 - numba
 - defaults
 - conda-forge
-- saturncloud
 dependencies:
 - blas=*=mkl
 - python=3.7

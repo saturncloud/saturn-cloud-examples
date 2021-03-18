@@ -1,13 +1,11 @@
 name: taxi-demo
 channels:
-- https://conda.saturncloud.io/pkgs
 - nvidia
 - rapidsai
 - pytorch
 - numba
 - defaults
 - conda-forge
-- saturncloud
 dependencies:
 - blas=*=mkl
 - bokeh
